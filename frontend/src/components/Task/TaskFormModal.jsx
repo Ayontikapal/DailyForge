@@ -112,8 +112,9 @@ export default function TaskFormModal({
     if (!task && selectedDateTime < now) {
       return onError?.("Due date/time cannot be in the past");
     }
-    if (selectedDateTime > maxDateStr) {
-      return alert("Due date cannot be more than 1 year in the future");
+    const maxDateTime = new Date(maxDateStr + "T23:59:59");
+    if (selectedDateTime > maxDateTime) {
+      return onError?.("Due date cannot be more than 1 year in the future");
     }
 
     onSubmit({
@@ -342,7 +343,6 @@ export default function TaskFormModal({
               </select>
             </div>
 
-            {/* Due Date */}
             {/* Due Date */}
             <div>
               <label className="text-sm font-medium text-main">Due Date</label>
